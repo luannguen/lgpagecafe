@@ -3,10 +3,10 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useScroll } from 'framer-motion';
+import { useScroll } from '@react-three/drei';
 
 export function CameraRig() {
-  const { scrollYProgress } = useScroll();
+  const scrollData = useScroll();
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
 
   // Position targets for each scene
@@ -17,7 +17,7 @@ export function CameraRig() {
   // Scene 5/6: Menu/Booking (Side view for text on left)
   
   useFrame((state) => {
-    const scroll = scrollYProgress.get();
+    const scroll = scrollData.offset;
     const camera = state.camera;
 
     let targetPos = new THREE.Vector3();

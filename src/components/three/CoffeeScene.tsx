@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Environment, ContactShadows } from '@react-three/drei';
+import { Environment, ContactShadows, ScrollControls } from '@react-three/drei';
 import { CoffeeModel } from './CoffeeModel';
 import { FogSystem } from './FogSystem';
 import { LightingSystem } from './LightingSystem';
@@ -10,25 +10,38 @@ import { CameraRig } from './CameraRig';
 import { DynamicEnvironment } from './DynamicEnvironment';
 import { KintsugiTable } from './KintsugiTable';
 import { CoffeeBeans } from './CoffeeBeans';
+import { SceneText3D } from './SceneText3D';
+import { BookingForm3D } from './BookingForm3D';
 
 export function CoffeeScene() {
   return (
-    <div className="fixed inset-0 w-full h-full pointer-events-none z-0">
+    <div className="w-full h-full">
       <Canvas shadows camera={{ position: [0, 2, 8], fov: 45 }}>
-        <FogSystem />
-        <LightingSystem />
-        <CameraRig />
+        <color attach="background" args={['#0a0500']} />
         
-        <Environment preset="city" />
-        
-        {/* Core Objects */}
-        <KintsugiTable />
-        <CoffeeBeans />
-        <CoffeeModel />
-        
-        {/* The 3 Scroll-Linked Particle Systems */}
-        <DynamicEnvironment />
-        
+        {/* ScrollControls drives the 3D scroll logic. pages=5 creates the virtual height */}
+        <ScrollControls pages={5} damping={0.25}>
+          
+          <FogSystem />
+          <LightingSystem />
+          <CameraRig />
+          
+          <Environment preset="city" />
+          
+          {/* Core Objects */}
+          <KintsugiTable />
+          <CoffeeBeans />
+          <CoffeeModel />
+          
+          {/* Particles */}
+          <DynamicEnvironment />
+          
+          {/* Pure 3D Text & UI Elements */}
+          <SceneText3D />
+          <BookingForm3D />
+          
+        </ScrollControls>
+
         <ContactShadows 
           position={[0, -0.5, 0]} 
           opacity={0.8} 

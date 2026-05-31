@@ -2,11 +2,11 @@
 
 import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
-import { useScroll } from 'framer-motion';
+import { useScroll } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
 export function KintsugiTable() {
-  const { scrollYProgress } = useScroll();
+  const scrollData = useScroll();
   const woodMat = useRef<THREE.MeshStandardMaterial>(null);
   const goldMat = useRef<THREE.MeshBasicMaterial>(null);
   const cracksRef = useRef<THREE.Group>(null);
@@ -25,7 +25,7 @@ export function KintsugiTable() {
   }, []);
 
   useFrame(() => {
-    const scroll = scrollYProgress.get();
+    const scroll = scrollData.offset;
     
     // Wood visibility (Scene 1 & 5)
     let woodOpacity = 1;

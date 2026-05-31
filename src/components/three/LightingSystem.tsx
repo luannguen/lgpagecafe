@@ -2,18 +2,18 @@
 
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useScroll } from 'framer-motion';
+import { useScroll } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function LightingSystem() {
-  const { scrollYProgress } = useScroll();
+  const scrollData = useScroll();
   
   const mainLight = useRef<THREE.DirectionalLight>(null);
   const fillLight = useRef<THREE.PointLight>(null);
   const ambientLight = useRef<THREE.AmbientLight>(null);
 
   useFrame(() => {
-    const scroll = scrollYProgress.get();
+    const scroll = scrollData.offset;
     
     if (mainLight.current && fillLight.current && ambientLight.current) {
       let targetMainColor = new THREE.Color('#D4AF37'); // Gold (Arrival & Harmony)

@@ -2,11 +2,11 @@
 
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useScroll } from 'framer-motion';
+import { useScroll } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function DynamicEnvironment() {
-  const { scrollYProgress } = useScroll();
+  const scrollData = useScroll();
   
   // Refs for particle systems
   const sakuraRef = useRef<THREE.InstancedMesh>(null);
@@ -64,8 +64,8 @@ export function DynamicEnvironment() {
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
   useFrame((state) => {
-    const scroll = scrollYProgress.get();
     const time = state.clock.elapsedTime;
+    const scroll = scrollData.offset;
 
     // SCENE OPACITY MAPPING
     // Scene 1 & 5 (Sakura): scroll < 0.2 OR scroll > 0.8

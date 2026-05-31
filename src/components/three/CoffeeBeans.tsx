@@ -2,11 +2,11 @@
 
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useScroll } from 'framer-motion';
+import { useScroll } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function CoffeeBeans() {
-  const { scrollYProgress } = useScroll();
+  const scrollData = useScroll();
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const materialRef = useRef<THREE.MeshPhysicalMaterial>(null);
   
@@ -25,7 +25,7 @@ export function CoffeeBeans() {
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
   useFrame((state) => {
-    const scroll = scrollYProgress.get();
+    const scroll = scrollData.offset;
     const time = state.clock.elapsedTime;
     
     // SCENE LOGIC
