@@ -107,7 +107,7 @@ export function DynamicEnvironment() {
       dummy.position.set(Math.cos(e.angle) * e.radius, e.pos.y, Math.sin(e.angle) * e.radius);
       // add some erratic movement
       dummy.position.x += Math.sin(time * 5 + i) * 0.1;
-      dummy.scale.setScalar(Math.random() * 0.03 + 0.01);
+      dummy.scale.setScalar(Math.random() * 0.15 + 0.05); // Much smaller embers
       dummy.updateMatrix();
       embersRef.current?.setMatrixAt(i, dummy.matrix);
 
@@ -142,10 +142,10 @@ export function DynamicEnvironment() {
 
       {/* Fire Embers */}
       <instancedMesh ref={embersRef} args={[undefined, undefined, count]}>
-        <sphereGeometry args={[1, 4, 4]} />
+        <sphereGeometry args={[0.5, 8, 8]} />
         <meshBasicMaterial 
           ref={emberMat} 
-          color="#ff4500" 
+          color="#ffaa00" 
           transparent 
           opacity={0} 
           blending={THREE.AdditiveBlending}

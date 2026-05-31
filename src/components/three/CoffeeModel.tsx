@@ -11,9 +11,9 @@ export function CoffeeModel() {
   
   useFrame((state) => {
     if (liquidRef.current) {
-      // Simulate gentle liquid movement
+      // Add animation ON TOP of the base rotation (-Math.PI / 2)
       liquidRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 2) * 0.02;
-      liquidRef.current.rotation.x = Math.cos(state.clock.elapsedTime * 2) * 0.02;
+      liquidRef.current.rotation.x = -Math.PI / 2 + Math.cos(state.clock.elapsedTime * 2) * 0.02;
     }
   });
 
@@ -28,34 +28,41 @@ export function CoffeeModel() {
         <mesh position={[0, 0, 0]} scale={[1.05, 1, 0.95]} castShadow receiveShadow>
           <cylinderGeometry args={[1.2, 0.8, 1.5, 64]} />
           <meshPhysicalMaterial 
-            color="#1a1a1a" // Dark charcoal ceramic
-            roughness={0.85} // Matte finish
-            metalness={0.1}
-            clearcoat={0.1}
-            clearcoatRoughness={0.9}
+            color="#2a2a2a" // Lighter charcoal so lighting is visible
+            roughness={0.7} // Slightly more reflective
+            metalness={0.2}
+            clearcoat={0.3}
+            clearcoatRoughness={0.5}
           />
+        </mesh>
+        
+        {/* Cup Inside - To create an illusion of depth if needed */}
+        <mesh position={[0, 0.01, 0]} scale={[1.04, 1, 0.94]} receiveShadow>
+          <cylinderGeometry args={[1.15, 0.75, 1.5, 64]} />
+          <meshBasicMaterial color="#0a0500" />
         </mesh>
         
         {/* Cup Handle - Slightly organic shape */}
         <mesh position={[1.2, 0, 0]} rotation={[0, 0, -Math.PI / 8]} scale={[1, 1.2, 0.8]} castShadow>
-          <torusGeometry args={[0.5, 0.15, 16, 32]} />
+          <torusGeometry args={[0.5, 0.15, 32, 64]} />
           <meshPhysicalMaterial 
-            color="#1a1a1a"
-            roughness={0.85}
+            color="#2a2a2a"
+            roughness={0.7}
+            metalness={0.2}
           />
         </mesh>
         
         {/* Coffee Liquid - Highly reflective */}
-        <mesh ref={liquidRef} position={[0, 0.65, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <mesh ref={liquidRef} position={[0, 0.76, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
           <circleGeometry args={[1.1, 64]} />
           <meshPhysicalMaterial 
-            color="#0a0500" // Extremely dark brown/black
-            roughness={0.0} // Mirror-like liquid
-            metalness={0.1}
+            color="#1a0a00" // Dark brown liquid
+            roughness={0.1} // More reflective
+            metalness={0.8}
             ior={1.5}
             clearcoat={1.0}
-            clearcoatRoughness={0.0}
-            envMapIntensity={2.0} // Reflect environment heavily
+            clearcoatRoughness={0.1}
+            envMapIntensity={3.0} // Strong environment reflection
           />
         </mesh>
       </group>
