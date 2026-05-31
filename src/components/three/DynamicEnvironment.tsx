@@ -12,19 +12,22 @@ export function DynamicEnvironment() {
   const sakuraRef = useRef<THREE.InstancedMesh>(null);
   const embersRef = useRef<THREE.InstancedMesh>(null);
   const dropletsRef = useRef<THREE.InstancedMesh>(null);
+  const steamRef = useRef<THREE.InstancedMesh>(null);
 
   // Materials
   const sakuraMat = useRef<THREE.MeshBasicMaterial>(null);
   const emberMat = useRef<THREE.MeshBasicMaterial>(null);
   const dropletMat = useRef<THREE.MeshPhysicalMaterial>(null);
+  const steamMat = useRef<THREE.MeshBasicMaterial>(null);
 
   const count = 200;
 
   // Initial positions and random data
-  const { sakuraData, emberData, dropletData } = useMemo(() => {
+  const { sakuraData, emberData, dropletData, steamData } = useMemo(() => {
     const sData = [];
     const eData = [];
     const dData = [];
+    const stData = [];
     
     for (let i = 0; i < count; i++) {
       // Sakura (Floating widely)
@@ -47,8 +50,15 @@ export function DynamicEnvironment() {
         pos: new THREE.Vector3((Math.random() - 0.5) * 8, Math.random() * 5, (Math.random() - 0.5) * 8),
         speed: Math.random() * 0.005
       });
+      
+      // Steam (Thick clouds moving up from cup)
+      stData.push({
+        pos: new THREE.Vector3((Math.random() - 0.5) * 2, Math.random() * 3 + 1, (Math.random() - 0.5) * 2),
+        speed: Math.random() * 0.01 + 0.005,
+        scale: Math.random() * 1.5 + 0.5
+      });
     }
-    return { sakuraData: sData, emberData: eData, dropletData: dData };
+    return { sakuraData: sData, emberData: eData, dropletData: dData, steamData: stData };
   }, []);
 
   const dummy = useMemo(() => new THREE.Object3D(), []);
@@ -79,6 +89,7 @@ export function DynamicEnvironment() {
     if (sakuraMat.current) sakuraMat.current.opacity = THREE.MathUtils.lerp(sakuraMat.current.opacity, sakuraTargetOpacity, 0.05);
     if (emberMat.current) emberMat.current.opacity = THREE.MathUtils.lerp(emberMat.current.opacity, emberTargetOpacity, 0.05);
     if (dropletMat.current) dropletMat.current.opacity = THREE.MathUtils.lerp(dropletMat.current.opacity, dropletTargetOpacity, 0.05);
+    if (steamMat.current) steamMat.current.opacity = THREE.MathUtils.lerp(steamMat.current.opacity, dropletTargetOpacity * 0.15, 0.05); // Steam is very faint
 
     // Update instances
     for (let i = 0; i < count; i++) {
@@ -118,11 +129,21 @@ export function DynamicEnvironment() {
       dummy.scale.setScalar(0.04);
       dummy.updateMatrix();
       dropletsRef.current?.setMatrixAt(i, dummy.matrix);
+      
+      // STEAM
+      const st = steamData[i];
+      st.pos.y += st.speed;
+      if (st.pos.y > 6) st.pos.y = 1;
+      dummy.position.set(st.pos.x + Math.sin(time * 0.5 + i) * 0.2, st.pos.y, st.pos.z);
+      dummy.scale.setScalar(st.scale * (1 + Math.sin(time + i) * 0.2));
+      dummy.updateMatrix();
+      steamRef.current?.setMatrixAt(i, dummy.matrix);
     }
     
     sakuraRef.current!.instanceMatrix.needsUpdate = true;
     embersRef.current!.instanceMatrix.needsUpdate = true;
     dropletsRef.current!.instanceMatrix.needsUpdate = true;
+    steamRef.current!.instanceMatrix.needsUpdate = true;
   });
 
   return (
@@ -165,6 +186,19 @@ export function DynamicEnvironment() {
           roughness={0} 
           ior={1.33} 
           thickness={0.5}
+        />
+      </instancedMesh>
+      
+      {/* Thick Steam */}
+      <instancedMesh ref={steamRef} args={[undefined, undefined, count]}>
+        <sphereGeometry args={[1, 16, 16]} />
+        <meshBasicMaterial 
+          ref={steamMat} 
+          color="#e0ffff" 
+          transparent 
+          opacity={0} 
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
         />
       </instancedMesh>
     </>

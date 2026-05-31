@@ -9,6 +9,7 @@ import { LightingSystem } from './LightingSystem';
 import { CameraRig } from './CameraRig';
 import { DynamicEnvironment } from './DynamicEnvironment';
 import { KintsugiTable } from './KintsugiTable';
+import { CoffeeBeans } from './CoffeeBeans';
 
 export function CoffeeScene() {
   return (
@@ -22,6 +23,7 @@ export function CoffeeScene() {
         
         {/* Core Objects */}
         <KintsugiTable />
+        <CoffeeBeans />
         <CoffeeModel />
         
         {/* The 3 Scroll-Linked Particle Systems */}
