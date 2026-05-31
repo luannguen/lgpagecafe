@@ -26,7 +26,7 @@ const TESTIMONIALS = [
 
 export function TestimonialsSection() {
   return (
-    <ScrollSection id="testimonials" className="bg-transparent pointer-events-auto">
+    <ScrollSection id="testimonials" scrollRange={[0.80, 0.90]} className="bg-transparent pointer-events-auto">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <SectionTitle 
           title="Voices of the Craft" 

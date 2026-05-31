@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 
 export function HeroSection() {
   return (
-    <ScrollSection id="hero" className="bg-transparent h-screen flex-col justify-start pointer-events-none">
+    <ScrollSection id="hero" scrollRange={[0, 0.15]} className="bg-transparent flex-col justify-center">
       <HeroContent />
       
       {/* Scroll indicator */}

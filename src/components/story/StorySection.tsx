@@ -8,7 +8,7 @@ import { ScrollSection } from '../animations/ScrollSection';
 
 export function StorySection() {
   return (
-    <ScrollSection id="story" className="bg-transparent pointer-events-auto">
+    <ScrollSection id="story" scrollRange={[0.15, 0.35]} className="bg-transparent pointer-events-auto">
       <div className="container mx-auto px-6 md:px-12 relative z-10 w-full">
         <SectionTitle 
           title="Rooted in Tradition" 

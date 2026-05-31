@@ -7,7 +7,7 @@ import { ScrollSection } from '../animations/ScrollSection';
 
 export function SpaceSection() {
   return (
-    <ScrollSection id="space" className="bg-transparent pointer-events-auto justify-end pb-32">
+    <ScrollSection id="space" scrollRange={[0.55, 0.70]} className="bg-transparent pointer-events-auto justify-end">
       <div className="container mx-auto px-6 md:px-12 w-full">
         <SectionTitle 
           title="Sanctuary of Shadows" 

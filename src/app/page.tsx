@@ -12,14 +12,24 @@ import { CoffeeScene } from '@/components/three/CoffeeScene';
 
 export default function Home() {
   return (
-    <main className="relative bg-brand-dark min-h-screen">
+    <main className="relative bg-brand-dark">
       <Navbar />
       
       {/* Global 3D Cinematic Background */}
       <CoffeeScene />
       
-      {/* Scrollable Transparent Content Overlay */}
-      <div className="relative z-10 w-full pointer-events-none">
+      {/* 
+        VIRTUAL SCROLL CONTAINER
+        This forces the browser to have a scrollbar without actually sliding content.
+        The height (e.g. 500vh) determines how long the total cinematic experience takes to scroll through.
+      */}
+      <div className="h-[600vh] w-full" />
+      
+      {/* 
+        FIXED OVERLAYS
+        These sections are absolutely positioned over the screen and fade in/out based on scroll progress.
+      */}
+      <div className="fixed inset-0 z-10 pointer-events-none">
         <HeroSection />
         <StorySection />
         <CraftSection />
@@ -27,12 +37,12 @@ export default function Home() {
         <MenuSection />
         <TestimonialsSection />
         <BookingSection />
-        
-        {/* Make footer sections catch pointer events */}
-        <div className="pointer-events-auto bg-brand-dark">
-          <ContactSection />
-          <Footer />
-        </div>
+      </div>
+
+      {/* Footer at the end of the journey */}
+      <div className="absolute bottom-0 w-full z-20 pointer-events-auto bg-brand-dark">
+        <ContactSection />
+        <Footer />
       </div>
     </main>
   );

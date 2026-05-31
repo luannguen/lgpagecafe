@@ -9,7 +9,7 @@ import { BookingForm } from './BookingForm';
 
 export function BookingSection() {
   return (
-    <ScrollSection id="reservation" className="bg-transparent">
+    <ScrollSection id="booking" scrollRange={[0.90, 1.0]} className="bg-transparent pointer-events-auto">
       {/* Background glow specific to this section */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold/5 rounded-full blur-[150px] pointer-events-none" />
       

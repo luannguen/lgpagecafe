@@ -14,7 +14,7 @@ const CRAFT_STEPS = [
 
 export function CraftSection() {
   return (
-    <ScrollSection id="craft" className="bg-transparent pointer-events-auto">
+    <ScrollSection id="craft" scrollRange={[0.35, 0.55]} className="bg-transparent pointer-events-auto">
       <div className="container mx-auto px-6 md:px-12 w-full">
         <SectionTitle 
           title="The Pursuit of Perfection" 

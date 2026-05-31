@@ -8,7 +8,7 @@ import { MenuCard } from './MenuCard';
 
 export function MenuSection() {
   return (
-    <ScrollSection id="menu" className="bg-transparent pointer-events-auto items-start pt-32">
+    <ScrollSection id="menu" scrollRange={[0.70, 0.85]} className="bg-transparent pointer-events-auto items-start pt-32">
       <div className="container mx-auto px-6 md:px-12 w-full">
         <SectionTitle 
           title="Signature Collection" 
