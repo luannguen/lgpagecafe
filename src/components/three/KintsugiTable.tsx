@@ -25,6 +25,7 @@ export function KintsugiTable() {
   }, []);
 
   useFrame(() => {
+    if (!scrollData) return;
     const scroll = scrollData.offset;
     
     // Wood visibility (Scene 1 & 5)

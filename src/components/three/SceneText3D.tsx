@@ -18,6 +18,7 @@ export function SceneText3D() {
   const craftMat = useRef<THREE.MeshStandardMaterial>(null);
 
   useFrame(() => {
+    if (!scroll) return;
     const offset = scroll.offset;
     
     // Fade Logic based on Scroll Offset

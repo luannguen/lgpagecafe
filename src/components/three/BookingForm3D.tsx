@@ -10,6 +10,7 @@ export function BookingForm3D() {
   const groupRef = useRef<THREE.Group>(null);
   
   useFrame(() => {
+    if (!scroll) return;
     const offset = scroll.offset;
     if (groupRef.current) {
       // Show only at the very end (Harmony Scene)

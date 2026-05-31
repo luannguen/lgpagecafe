@@ -64,6 +64,7 @@ export function DynamicEnvironment() {
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
   useFrame((state) => {
+    if (!scrollData) return;
     const time = state.clock.elapsedTime;
     const scroll = scrollData.offset;
 

@@ -13,6 +13,7 @@ export function LightingSystem() {
   const ambientLight = useRef<THREE.AmbientLight>(null);
 
   useFrame(() => {
+    if (!scrollData) return;
     const scroll = scrollData.offset;
     
     if (mainLight.current && fillLight.current && ambientLight.current) {

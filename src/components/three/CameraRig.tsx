@@ -17,6 +17,7 @@ export function CameraRig() {
   // Scene 5/6: Menu/Booking (Side view for text on left)
   
   useFrame((state) => {
+    if (!scrollData) return;
     const scroll = scrollData.offset;
     const camera = state.camera;
 

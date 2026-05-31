@@ -25,6 +25,7 @@ export function CoffeeBeans() {
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
   useFrame((state) => {
+    if (!scrollData) return;
     const scroll = scrollData.offset;
     const time = state.clock.elapsedTime;
     
