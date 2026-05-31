@@ -5,9 +5,10 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows } from '@react-three/drei';
 import { CoffeeModel } from './CoffeeModel';
 import { FogSystem } from './FogSystem';
-import { ParticleSystem } from './ParticleSystem';
 import { LightingSystem } from './LightingSystem';
 import { CameraRig } from './CameraRig';
+import { DynamicEnvironment } from './DynamicEnvironment';
+import { KintsugiTable } from './KintsugiTable';
 
 export function CoffeeScene() {
   return (
@@ -18,12 +19,17 @@ export function CoffeeScene() {
         <CameraRig />
         
         <Environment preset="city" />
+        
+        {/* Core Objects */}
+        <KintsugiTable />
         <CoffeeModel />
-        <ParticleSystem count={300} />
+        
+        {/* The 3 Scroll-Linked Particle Systems */}
+        <DynamicEnvironment />
         
         <ContactShadows 
           position={[0, -0.5, 0]} 
-          opacity={0.6} 
+          opacity={0.8} 
           scale={15} 
           blur={2.5} 
           far={4} 
